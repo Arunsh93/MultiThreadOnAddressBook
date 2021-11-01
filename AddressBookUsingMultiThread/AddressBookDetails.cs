@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -8,11 +9,9 @@ namespace AddressBookUsingMultiThread
     class AddressBookDetails
     {
         public static List<Person> contacts;
-        public static List<Person> searchContact = new List<Person>();
-        public static int countCity = 0, countState = 0;
-        public static List<Person> SortedList = new List<Person>();
         //Address Book to Dictionary
         public static Dictionary<string, List<Person>> addDictionary = new Dictionary<string, List<Person>>();
+
         public static void AddContact()
         {
             string addressBookName;
@@ -45,29 +44,8 @@ namespace AddressBookUsingMultiThread
             while (numOfContacts > 0)
             {
                 Person person = new Person();
-                while (true)
-                {
-                    Console.WriteLine("Enter First name: ");
-                    string firstName = Console.ReadLine();
-                    if (contacts.Count > 0)
-                    {
-                        var x = contacts.Find(x => x.firstName.Equals(firstName.ToLower()));
-                        if (x != null)
-                        {
-                            Console.WriteLine("Entering name is Already Exist!");
-                        }
-                        else
-                        {
-                            person.firstName = firstName;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        person.firstName = firstName;
-                        break;
-                    }
-                }
+                Console.WriteLine("Enter First name: ");
+                person.firstName = Console.ReadLine();
                 Console.WriteLine("Enter Last name: ");
                 person.lastName = Console.ReadLine();
                 Console.WriteLine("Enter Address: ");
@@ -263,255 +241,6 @@ namespace AddressBookUsingMultiThread
                 Console.WriteLine("Address book is Empty!");
             }
         }
-
-        public static void SearchDetail()
-        {
-            string personName;
-            Console.WriteLine("1. Search by City name \n2. Search by State name \nEnter your option");
-            int searchOption = int.Parse(Console.ReadLine());
-            switch (searchOption)
-            {
-                case 1:
-                    Console.WriteLine("Enter the name of city in which you want to search");
-                    string cityName = Console.ReadLine();
-                    Console.WriteLine("Enter the name of person you want to search");
-                    personName = Console.ReadLine();
-                    SearchByCityName(cityName, personName);
-                    break;
-                case 2:
-                    Console.WriteLine("Enter the State name in which you want to search");
-                    string stateName = Console.ReadLine();
-                    Console.WriteLine("Enter the name of person you want to search");
-                    personName = Console.ReadLine();
-
-                    SearchByStateName(stateName, personName);
-                    break;
-                default:
-                    return;
-            }
-        }
-        //Search by City names
-        public static void SearchByCityName(string cityName, string personName)
-        {
-            if (addDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
-                {
-                    searchContact = dict.Value.FindAll(x => x.firstName.Equals(personName) && x.city.Equals(cityName));
-                }
-
-                if (searchContact.Count > 0)
-                {
-                    foreach (var x in searchContact)
-                    {
-                        PrintValues(x);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Person Not Found!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address Book is Empty!");
-            }
-        }
-        //Search by State Names
-        public static void SearchByStateName(string stateName, string personName)
-        {
-            if (addDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
-                {
-                    searchContact = dict.Value.FindAll(x => x.firstName.Equals(personName) && x.state.Equals(stateName));
-                }
-
-                if (searchContact.Count > 0)
-                {
-                    foreach (var x in searchContact)
-                    {
-                        PrintValues(x);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Person Not Found!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address Book is Empty!");
-            }
-        }
-
-        public static void ViewContactByStateOrCity()
-        {
-            Console.WriteLine("1. View by City name \n2. View by State name \nEnter your option");
-            int searchOption = int.Parse(Console.ReadLine());
-            switch (searchOption)
-            {
-                case 1:
-                    Console.WriteLine("Enter the name of city in which you want to View");
-                    string cityName = Console.ReadLine();
-                    ViewByCityName(cityName, "View");
-                    break;
-                case 2:
-                    Console.WriteLine("Enter the State name in which you want to View");
-                    string stateName = Console.ReadLine();
-                    ViewByStateName(stateName, "View");
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        public static void CountContactByStateOrCity()
-        {
-            Console.WriteLine("1. Count by City name \n2. Count by State name \nEnter your option");
-            int searchOption = int.Parse(Console.ReadLine());
-            switch (searchOption)
-            {
-                case 1:
-                    Console.WriteLine("Enter the name of city in which you want to View");
-                    string cityName = Console.ReadLine();
-                    ViewByCityName(cityName, "Count");
-                    break;
-                case 2:
-                    Console.WriteLine("Enter the State name in which you want to View");
-                    string stateName = Console.ReadLine();
-                    ViewByStateName(stateName, "Count");
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        public static void ViewByCityName(string cityName, string check)
-        {
-            if (addDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
-                {
-                    searchContact = dict.Value.FindAll(x => x.city.Equals(cityName));
-                }
-                if (check.Equals("View"))
-                {
-                    if (searchContact.Count > 0)
-                    {
-                        foreach (var x in searchContact)
-                        {
-                            PrintValues(x);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Person Not Found!");
-                    }
-                }
-                else
-                {
-                    countCity = searchContact.Count;
-                    Console.WriteLine($"The Total Person in {cityName} are : {countCity}");
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("Address Book is Empty!");
-            }
-        }
-
-        public static void ViewByStateName(string stateName, string check)
-        {
-            if (addDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
-                {
-                    searchContact = dict.Value.FindAll(x => x.state.Equals(stateName));
-                }
-
-                if (check.Equals("View"))
-                {
-                    if (searchContact.Count > 0)
-                    {
-                        foreach (var x in searchContact)
-                        {
-                            PrintValues(x);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Person Not Found!");
-                    }
-                }
-                else
-                {
-                    countState = searchContact.Count;
-                    Console.WriteLine($"The Total Person in {stateName} are : {countState}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address Book is Empty!");
-            }
-        }
-
-        public static void SortListByProperties()
-        {
-            Console.WriteLine("\n1. Sort by Person Name \n2. Sort by City Name \n3. Sort by State Name \n4. Sort by ZipCode \n5. Enter an Option");
-            int propOption = int.Parse(Console.ReadLine());
-            switch (propOption)
-            {
-                case 1:
-                    SortList("name");
-                    break;
-                case 2:
-                    SortList("city");
-                    break;
-                case 3:
-                    SortList("state");
-                    break;
-                case 4:
-                    SortList("zipCode");
-                    break;
-            }
-        }
-
-        public static void SortList(string check)
-        {
-            if (addDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
-                {
-                    switch (check)
-                    {
-                        case "name":
-                            SortedList = dict.Value.OrderBy(x => x.firstName).ToList();
-                            break;
-                        case "city":
-                            SortedList = dict.Value.OrderBy(x => x.city).ToList();
-                            break;
-                        case "state":
-                            SortedList = dict.Value.OrderBy(x => x.state).ToList();
-                            break;
-                        case "zipCode":
-                            SortedList = dict.Value.OrderBy(x => x.zip).ToList();
-                            break;
-                    }
-                    Console.WriteLine($"****After Sorting {dict.Key} ****");
-                    foreach (var addressBook in SortedList)
-                    {
-                        PrintValues(addressBook);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address Book is Empty");
-            }
-        }
-
         public static void PrintValues(Person person)
         {
             Console.WriteLine($"First Name: {person.firstName}");
@@ -523,5 +252,78 @@ namespace AddressBookUsingMultiThread
             Console.WriteLine($"Phone Number: {person.phoneNumber}");
             Console.WriteLine($"EmailId   : {person.emailId}");
         }
-    }
+
+        //Write the Address Book into File
+        public static void WriteToFile()
+        {
+            string filePath = @"E:\ASP.NET\Day23-AddressBookUsingCollections\AddressBookCollection\AddressBook.txt";
+
+            try
+            {
+                if (addDictionary.Count > 0)
+                {
+                    File.WriteAllText(filePath, string.Empty);
+
+                    foreach (KeyValuePair<string, List<Person>> dict in addDictionary)
+                    {
+                        File.AppendAllText(filePath, $"{dict.Key}\n");
+                        foreach (var addressBook in dict.Value)
+                        {
+                            string text = $"{addressBook.firstName},{addressBook.lastName},{addressBook.address},{addressBook.city},{addressBook.state},{addressBook.zip},{addressBook.phoneNumber},{addressBook.emailId}";
+                            File.AppendAllText(filePath, text);
+                        }
+                    }
+                    Console.WriteLine("Successfully Write into File!");
+                }
+                else
+                {
+                    Console.WriteLine("Address Book is Empty!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        //Read from File
+        public static void ReadFromFile()
+        {
+            string filePath = @"E:\ASP.NET\Day23-AddressBookUsingCollections\AddressBookCollection\AddressBook.txt";
+
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                var currentAbName = lines[0];
+                contacts = new List<Person>();
+                foreach (string str in lines.Skip(1))
+                {
+                    if (str.Contains(","))
+                    {
+                        Person person = new Person();
+                        string[] line = str.Split(",");
+                        person.firstName = line[0];
+                        person.lastName = line[1];
+                        person.address = line[2];
+                        person.city = line[3];
+                        person.state = line[4];
+                        person.zip = int.Parse(line[5]);
+                        person.phoneNumber = line[6];
+                        person.emailId = line[7];
+                        contacts.Add(person);
+                    }
+                    else
+                    {
+                        addDictionary.Add(currentAbName, contacts);
+                        currentAbName = str;
+                        contacts = new List<Person>();
+                    }
+                }
+                addDictionary.Add(currentAbName, contacts);
+                Console.WriteLine("Successfully Added!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+    }   }
 }

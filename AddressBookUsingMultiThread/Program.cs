@@ -10,10 +10,9 @@ namespace AddressBookUsingMultiThread
 
             while (true)
             {
-                Console.WriteLine("1. Add Member to Contact List \n2. View Members in Contact list \n3. Edit Contact List \n4. Delete Contact \n5 Search Details \n6. View Contact By State Or City \n7 Count Contacts By State or City \n8. Sort By Properties \n9.Exit");
+                Console.WriteLine("1. Add Member to Contact List \n2. View Members in Contact list \n3. Edit Contact List \n4. Delete Contact \n5. Write Into File \n6 Read From File \n7.Exit");
                 Console.Write("Enter an Option: ");
                 int option = int.Parse(Console.ReadLine());
-
                 switch (option)
                 {
                     case 1:
@@ -29,18 +28,12 @@ namespace AddressBookUsingMultiThread
                         AddressBookDetails.DeleteContact();
                         break;
                     case 5:
-                        AddressBookDetails.SearchDetail();
+                        AddressBookDetails.WriteToFile();
                         break;
                     case 6:
-                        AddressBookDetails.ViewContactByStateOrCity();
+                        AddressBookDetails.ReadFromFile();
                         break;
                     case 7:
-                        AddressBookDetails.CountContactByStateOrCity();
-                        break;
-                    case 8:
-                        AddressBookDetails.SortListByProperties();
-                        break;
-                    case 9:
                         return;
                 }
             }
