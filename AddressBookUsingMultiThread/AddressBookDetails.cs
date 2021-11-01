@@ -56,6 +56,23 @@ namespace AddressBookUsingMultiThread
             Console.WriteLine("Successfully Added!");
         }
 
+        public static void ViewConatcts()
+        {
+            if (contacts.Count > 0)
+            {
+                Console.WriteLine("*****Yours Contact List*****");
+                foreach (var member in contacts)
+                {
+                    PrintValues(member);
+                    Console.WriteLine("==================================");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Your AddressBook is Empty!");
+            }
+        }
+
         public static void EditContact()
         {
             int f;
@@ -155,23 +172,6 @@ namespace AddressBookUsingMultiThread
             }
         }
 
-        public static void ViewConatcts()
-        {
-            if (contacts.Count > 0)
-            {
-                Console.WriteLine("*****Yours Contact List*****");
-                foreach (var member in contacts)
-                {
-                    PrintValues(member);
-                    Console.WriteLine("==================================");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Your AddressBook is Empty!");
-            }
-        }
-
         public static void DeleteContact()
         {
             int f = 0;
@@ -203,14 +203,14 @@ namespace AddressBookUsingMultiThread
 
         public static void PrintValues(Person person)
         {
-            Console.WriteLine($"First Name:   {person.firstName}");
-            Console.WriteLine($"Last Name :   {person.lastName}");
-            Console.WriteLine($"Address   :   {person.address}");
-            Console.WriteLine($"City      :   {person.city}");
-            Console.WriteLine($"State     :   {person.state}");
-            Console.WriteLine($"Zip Code  :   {person.zip}");
+            Console.WriteLine($"First Name: {person.firstName}");
+            Console.WriteLine($"Last Name : {person.lastName}");
+            Console.WriteLine($"Address   : {person.address}");
+            Console.WriteLine($"City      : {person.city}");
+            Console.WriteLine($"State     : {person.state}");
+            Console.WriteLine($"Zip Code  : {person.zip}");
             Console.WriteLine($"Phone Number: {person.phoneNumber}");
-            Console.WriteLine($"Email Id  :   {person.emailId}");
+            Console.WriteLine($"EmailId   : {person.emailId}");
         }
     }
 }
