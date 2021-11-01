@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookUsingMultiThread", "AddressBookUsingMultiThread.csproj", "{5F8F9B1C-6ABF-44F8-AA29-F0386F566DCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F8F9B1C-6ABF-44F8-AA29-F0386F566DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8F9B1C-6ABF-44F8-AA29-F0386F566DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8F9B1C-6ABF-44F8-AA29-F0386F566DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8F9B1C-6ABF-44F8-AA29-F0386F566DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6EA2DDD-36DC-4400-A656-6AC5EF7B2A14}
+	EndGlobalSection
+EndGlobal
